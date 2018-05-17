@@ -36,11 +36,27 @@
     //else if prefix is 38 or 39 and cardNumber.length i 14 digits
       //return 'Diner's Club'
     //else return 'Invalid'
+
+Discover always has a prefix of 6011, 644-649, or 65, and a length of 16 or 19.
+
+Maestro always has a prefix of 5018, 5020, 5038, or 6304, and a length of 12-19.
+
+China UnionPay always has a prefix of 622126-622925, 624-626, or 6282-6288 and a length of 16-19.
+
+Switch always has a prefix of 4903, 4905, 4911, 4936, 564182, 633110, 6333, or 6759 and a length of 16, 18, or 19.
+
+Heads up! Switch and Visa seem to have some overlapping card numbers - in any apparent conflict, you should choose the network with the longer prefix.
 */
+
 var detectNetwork = function(cardNumber) {
   var prefix = cardNumber.substring(0, 2);
   var numOfDigits = cardNumber.length;
   var cardNetwork = '';
+  var chinaUnionPrefixes = [];
+
+  for(var i = 622126; i <= 622925; i++) {
+    chinaUnionPrefixes.push(JSON.stringify(i));
+  };
 
   if((prefix === '34' || prefix === '37') && numOfDigits === 15) {
     cardNetwork = 'American Express';
@@ -50,12 +66,45 @@ var detectNetwork = function(cardNumber) {
     cardNetwork = 'Visa';
   } else if  ((prefix === '51' || prefix === '52' || prefix === '53' || prefix === '54' || prefix === '55') && numOfDigits === 16) {
     cardNetwork  = 'MasterCard';
-  } else if (cardNumber.substring(0, 4) === '6011' && (numOfDigits === 16 || numOfDigits === 19)) {
-  	cardNetwork = 'Discover';
+  } else if ((cardNumber.substring(0, 4) === '6011' || cardNumber.substring(0, 3) === '644' || cardNumber.substring(0, 3) === '645' || cardNumber.substring(0, 3) === '646' || cardNumber.substring(0, 3) === '647' || cardNumber.substring(0, 3) === '648' || cardNumber.substring(0, 3) === '649' || prefix === '65' ) && (numOfDigits === 16 || numOfDigits === 19)) {
+    cardNetwork = 'Discover';
+  } else if ((cardNumber.substring(0, 4) === '5018' || cardNumber.substring(0, 4) === '5020' || cardNumber.substring(0, 4) === '5038' || cardNumber.substring(0, 4) === '6304') && (numOfDigits === 12 || numOfDigits === 13 || numOfDigits === 14 || numOfDigits === 15 || numOfDigits === 16 || numOfDigits === 17 || numOfDigits === 18 || numOfDigits === 19)) {
+    cardNetwork = 'Maestro';
+  } else if((cardNumber.substring(0, 4) === '4903' || cardNumber.substring(0, 4) === '4905' || cardNumber.substring(0, 4) === '4911' || cardNumber.substring(0, 4) === '4936' || cardNumber.substring(0, 4) === '6333' || cardNumber.substring(0, 4) === '6759'|| cardNumber.substring(0, 6) === '564182' || cardNumber.substring(0, 6) === '633110') && ()) {
+    
   } else {
-    cardNetwork = 'Invalid';
+    var chinaUnionPrefixes = [];
+    for(var i = 622126; i <= 622925; i++) {
+      chinaUnionPrefixes.push(JSON.stringify(i));
+    };
+    for(var i = 624; i <= 626; i++) {
+      chinaUnionPrefixes.push(JSON.stringify(i));
+    };
+    for(var i = 6282; i <= 6286; i++) {
+      chinaUnionPrefixes.push(JSON.stringify(i));
+    };
+
+    var prefixSix = cardNumber.substring(0, 6);
+    var prefixThree = cardNumber.substring(0, 3);
+    var prefixFour = cardNumber.substring(0, 4);
+    var cardNetwork = '';
+
+    function checkAvailability(chinaUnionPrefixes, prefixSix, prefixFour, prefixThree) {
+      if(cardNumber.length === 16 || cardNumber.length === 17 || cardNumber.length === 18 || cardNumber.length === 19) {
+        if(chinaUnionPrefixes.includes(prefixSix)) {
+          cardNetwork = 'China UnionPay';
+        } else if (chinaUnionPrefixes.includes(prefixThree)) {
+          cardNetwork = 'China UnionPay';
+        } else if (chinaUnionPrefixes.includes(prefixFour)) {
+          cardNetwork = 'China UnionPay';
+        }
+        return cardNetwork;
+      }
+    }
+
+    checkAvailability(chinaUnionPrefixes, prefixSix, prefixFour,prefixThree);
   }
   return cardNetwork;
 };
 
-  
+
