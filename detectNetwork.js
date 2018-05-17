@@ -50,6 +50,8 @@ var detectNetwork = function(cardNumber) {
     cardNetwork = 'Visa';
   } else if  ((prefix === '51' || prefix === '52' || prefix === '53' || prefix === '54' || prefix === '55') && numOfDigits === 16) {
     cardNetwork  = 'MasterCard';
+  } else if (cardNumber.substring(0, 4) === '6011' && (numOfDigits === 16 || numOfDigits === 19)) {
+  	cardNetwork = 'Discover';
   } else {
     cardNetwork = 'Invalid';
   }
