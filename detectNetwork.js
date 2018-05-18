@@ -60,18 +60,18 @@ var detectNetwork = function(cardNumber) {
 
   if((prefix === '34' || prefix === '37') && numOfDigits === 15) {
     cardNetwork = 'American Express';
-  } else if((prefix === '38' || prefix === '39') && numOfDigits === 14) {
-    cardNetwork = 'Diner\'s Club';
-  } else if (cardNumber.substring(0, 1) === '4' && (numOfDigits === 13 || numOfDigits === 16 || numOfDigits === 19)) {
-    cardNetwork = 'Visa';
-  } else if  ((prefix === '51' || prefix === '52' || prefix === '53' || prefix === '54' || prefix === '55') && numOfDigits === 16) {
-    cardNetwork  = 'MasterCard';
-  } else if ((cardNumber.substring(0, 4) === '6011' || cardNumber.substring(0, 3) === '644' || cardNumber.substring(0, 3) === '645' || cardNumber.substring(0, 3) === '646' || cardNumber.substring(0, 3) === '647' || cardNumber.substring(0, 3) === '648' || cardNumber.substring(0, 3) === '649' || prefix === '65' ) && (numOfDigits === 16 || numOfDigits === 19)) {
-    cardNetwork = 'Discover';
-  } else if ((cardNumber.substring(0, 4) === '5018' || cardNumber.substring(0, 4) === '5020' || cardNumber.substring(0, 4) === '5038' || cardNumber.substring(0, 4) === '6304') && (numOfDigits === 12 || numOfDigits === 13 || numOfDigits === 14 || numOfDigits === 15 || numOfDigits === 16 || numOfDigits === 17 || numOfDigits === 18 || numOfDigits === 19)) {
-    cardNetwork = 'Maestro';
-  } else if((cardNumber.substring(0, 4) === '4903' || cardNumber.substring(0, 4) === '4905' || cardNumber.substring(0, 4) === '4911' || cardNumber.substring(0, 4) === '4936' || cardNumber.substring(0, 4) === '6333' || cardNumber.substring(0, 4) === '6759'|| cardNumber.substring(0, 6) === '564182' || cardNumber.substring(0, 6) === '633110') && ()) {
-    
+    } else if((prefix === '38' || prefix === '39') && numOfDigits === 14) {
+      cardNetwork = 'Diner\'s Club';
+    } else if ((cardNumber.substring(0, 4) !== '4903' && cardNumber.substring(0, 4) !== '4905' && cardNumber.substring(0, 4) !== '4911' && cardNumber.substring(0, 4) !== '4936') && cardNumber.substring(0, 1) === '4' && (numOfDigits === 13 || numOfDigits === 16 || numOfDigits === 19)) {
+      cardNetwork = 'Visa';
+    } else if  ((prefix === '51' || prefix === '52' || prefix === '53' || prefix === '54' || prefix === '55') && numOfDigits === 16) {
+      cardNetwork  = 'MasterCard';
+    } else if ((cardNumber.substring(0, 4) === '6011' || cardNumber.substring(0, 3) === '644' || cardNumber.substring(0, 3) === '645' || cardNumber.substring(0, 3) === '646' || cardNumber.substring(0, 3) === '647' || cardNumber.substring(0, 3) === '648' || cardNumber.substring(0, 3) === '649' || prefix === '65' ) && (numOfDigits === 16 || numOfDigits === 19)) {
+      cardNetwork = 'Discover';
+    } else if ((cardNumber.substring(0, 4) === '5018' || cardNumber.substring(0, 4) === '5020' || cardNumber.substring(0, 4) === '5038' || cardNumber.substring(0, 4) === '6304') && (numOfDigits === 12 || numOfDigits === 13 || numOfDigits === 14 || numOfDigits === 15 || numOfDigits === 16 || numOfDigits === 17 || numOfDigits === 18 || numOfDigits === 19)) {
+      cardNetwork = 'Maestro';
+    } else if((cardNumber.substring(0, 4) === '4903' || cardNumber.substring(0, 4) === '4905' || cardNumber.substring(0, 4) === '4911' || cardNumber.substring(0, 4) === '4936' || cardNumber.substring(0, 4) === '6333' || cardNumber.substring(0, 4) === '6759'|| cardNumber.substring(0, 6) === '564182' || cardNumber.substring(0, 6) === '633110') && (numOfDigits === 16 || numOfDigits === 18 || numOfDigits === 19)) {
+      cardNetwork = 'Switch';    
   } else {
     var chinaUnionPrefixes = [];
     for(var i = 622126; i <= 622925; i++) {
@@ -80,7 +80,7 @@ var detectNetwork = function(cardNumber) {
     for(var i = 624; i <= 626; i++) {
       chinaUnionPrefixes.push(JSON.stringify(i));
     };
-    for(var i = 6282; i <= 6286; i++) {
+    for(var i = 6282; i <= 6288; i++) {
       chinaUnionPrefixes.push(JSON.stringify(i));
     };
 
