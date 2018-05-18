@@ -189,7 +189,15 @@ describe('Maestro', function() {
   // Write full test coverage for the Maestro card
   var expect = chai.expect;
 
-  var maestroPrefixes = ['5018', '5020', '5038', '6304']
+  // var maestroPrefixes = ['5018', '5020', '5038', '6304'];
+
+  // for (var length = 12; length <= 19; length++) {
+  //   (function(length) {
+  //     it('has a length of ' + length + ' and has a prefix of 5018', function() {
+  //       expect(detectNetwork('5018' )).to.equal('Maestro');
+  //     });
+  //   })(length);
+  // }
 
   it('has a prefix of 5018 and a length of 12', function() {
     expect(detectNetwork('501812345678')).to.equal('Maestro');
